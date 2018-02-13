@@ -23,7 +23,7 @@ export const actions = {
       'post'
     ])
     try {
-      const { data } = await this.$axios.$post('http://durabledrupal.net:5900/api/login', { username, password })
+      const { data } = await this.$axios.$post(process.env.API_HOST + '/api/login', { username, password })
       console.log('data', data)
       // commit('SET_USER', data)
       commit('SET_USER', { 'username': username })
@@ -36,7 +36,8 @@ export const actions = {
   },
 
   async logout({ commit }) {
-    await this.$axios.$post('http://durabledrupal.net:5900/api/logout')
+    console.log('var', process.env.API_HOST)
+    await this.$axios.$post(process.env.API_HOST + '/api/logout')
     commit('SET_USER', null)
   }
 

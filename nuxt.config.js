@@ -47,7 +47,8 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/dotenv'
     // Doc: https://github.com/nuxt-community/axios-module#usage
   ],
 
