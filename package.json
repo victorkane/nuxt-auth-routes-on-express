@@ -1,9 +1,13 @@
 {
-  "name": "newling",
+  "name": "nuxt-auth-routes-on-express",
   "version": "1.0.0",
-  "description": "My beautiful Nuxt.js project",
+  "description": "The Nuxt.js auth-routes example ported to a create-nuxt-app fired up express, axios module, and vuetify app.",
   "author": "victorkane",
-  "private": true,
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/victorkane/nuxt-auth-routes-on-express"
+  },
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
     "build": "nuxt build",
