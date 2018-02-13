@@ -15,9 +15,6 @@ config.dev = !(process.env.NODE_ENV === 'production')
 // All the server-side stuff before rendering Nuxt!
 
 const bodyParser = require('body-parser')
-const cors = require('cors');
-
-app.use(cors())
 
 app.use(bodyParser.urlencoded({
   extended : true
@@ -51,7 +48,6 @@ router.get('/about', (req, res) => {
 
 // Add POST - /api/login
 router.post('/api/login', (req, res) => {
-console.log('the req: ', req)
 console.log('the body: ', req.body)
   if (req.body.username === 'demo' && req.body.password === 'demo') {
     req.session.authUser = { username: 'demo' }
