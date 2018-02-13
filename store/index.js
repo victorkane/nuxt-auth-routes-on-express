@@ -23,10 +23,13 @@ export const actions = {
       'post'
     ])
     try {
-      const { data } = await this.$axios.$post(process.env.API_HOST + '/api/login', { username, password })
+      // original auth-routes code doesn't work since it used the "normal Axios package" instead of the Nuxt module.
+      //const { data } = await this.$axios.$post(process.env.API_HOST + '/api/login', { username, password })
+
+      // non-destructuring code works!
+      const data = await this.$axios.$post(process.env.API_HOST + '/api/login', { username, password })
       console.log('data', data)
-      // commit('SET_USER', data)
-      commit('SET_USER', { 'username': username })
+      commit('SET_USER', data)
     } catch (error) {
       if (error.response && error.response.status === 401) {
         throw new Error('Bad credentials')
