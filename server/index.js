@@ -6,18 +6,6 @@ const app = express()
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
 
-// Transform req & res to have the same API as express
-// So we can use res.status() & res.json()
-/*
-router.use((req, res, next) => {
-  Object.setPrototypeOf(req, app.request)
-  Object.setPrototypeOf(res, app.response)
-  req.res = res
-  res.req = req
-  next()
-})
-*/
-
 app.set('port', port)
 
 // Import and Set Nuxt.js options
@@ -27,6 +15,9 @@ config.dev = !(process.env.NODE_ENV === 'production')
 // All the server-side stuff before rendering Nuxt!
 
 const bodyParser = require('body-parser')
+const cors = require('cors');
+
+app.use(cors())
 
 app.use(bodyParser.urlencoded({
   extended : true
@@ -40,12 +31,27 @@ app.use(session({
   cookie: { maxAge: 60000 }
 }))
 
-app.get('/about', (req, res) => {
+const router = express.Router()
+
+// Transform req & res to have the same API as express
+// So we can use res.status() & res.json()
+router.use((req, res, next) => {
+  Object.setPrototypeOf(req, app.request)
+  Object.setPrototypeOf(res, app.response)
+  req.res = res
+  res.req = req
+  next()
+})
+
+app.use('/', router)
+
+router.get('/about', (req, res) => {
   res.send('¡Hola, amigos!')
 })
 
 // Add POST - /api/login
-app.post('/api/login', (req, res) => {
+router.post('/api/login', (req, res) => {
+console.log('the req: ', req)
 console.log('the body: ', req.body)
   if (req.body.username === 'demo' && req.body.password === 'demo') {
     req.session.authUser = { username: 'demo' }
@@ -55,7 +61,7 @@ console.log('the body: ', req.body)
 })
 
 // Add POST - /api/logout
-app.post('/api/logout', (req, res) => {
+router.post('/api/logout', (req, res) => {
   delete req.session.authUser
   res.json({ ok: true })
 })

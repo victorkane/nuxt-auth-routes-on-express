@@ -2,6 +2,9 @@ const pkg = require('./package')
 
 const nodeExternals = require('webpack-node-externals')
 
+const bodyParser = require('body-parser')
+const session = require('express-session')
+
 module.exports = {
   mode: 'universal',
 
@@ -44,15 +47,16 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios'
+    // Doc: https://github.com/nuxt-community/axios-module#usage
   ],
 
   /*
-  ** Axios module configuration
-  */
+-  ** Axios module configuration
+-  */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    credentials: false
   },
 
   /*
