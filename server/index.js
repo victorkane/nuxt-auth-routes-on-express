@@ -30,6 +30,8 @@ app.use(session({
 
 const router = express.Router()
 
+app.use('/', router)
+
 // Transform req & res to have the same API as express
 // So we can use res.status() & res.json()
 router.use((req, res, next) => {
@@ -39,8 +41,6 @@ router.use((req, res, next) => {
   res.req = req
   next()
 })
-
-app.use('/', router)
 
 router.get('/about', (req, res) => {
   res.send('¡Hola, amigos!')

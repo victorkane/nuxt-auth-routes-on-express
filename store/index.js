@@ -25,7 +25,8 @@ export const actions = {
     try {
       const { data } = await this.$axios.$post('http://durabledrupal.net:5900/api/login', { username, password })
       console.log('data', data)
-      commit('SET_USER', data)
+      // commit('SET_USER', data)
+      commit('SET_USER', { 'username': username })
     } catch (error) {
       if (error.response && error.response.status === 401) {
         throw new Error('Bad credentials')
